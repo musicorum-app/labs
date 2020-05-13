@@ -11,23 +11,35 @@ import mainstream from '../assets/experiments/mainstream.svg';
 const AppNavBar = () => {
   return <section>
     <Container>
-        <Row className="justify-content-md-start">
-          <Col md="auto">
-            <h5>EXPERIMENTS</h5>
-          </Col>
-        </Row>
-        <Row>
-          <Row>
-            <ExperimentModule
+      <Row className="justify-content-md-start">
+        <Col md="auto">
+          <h5>EXPERIMENTS</h5>
+        </Col>
+      </Row>
+      <Row>
+        <Row xs={{ span: 10, offset: 1 }}>
+          <ExperimentModule
             name="MAINSTREAM METTER"
             text="Check if you listen to more popular or underground artists/tracks."
             image={mainstream}
             page="mainstream"
-            />
-            <Col md className="experiment-module"></Col>
-          </Row>
+          />
+          <ExperimentModule
+            name="MAINSTREAM METTER"
+            text="Check if you listen to more popular or underground artists/tracks."
+            image={mainstream}
+            page="mainstream"
+          />
+          <ExperimentModule
+            name="MAINSTREAM METTER"
+            text="Check if you listen to more popular or underground artists/tracks."
+            image={mainstream}
+            page="mainstream"
+          />
         </Row>
-      </Container>
+        {/* <Col md className="experiment-module"></Col> */}
+      </Row>
+    </Container>
   </section>
 }
 

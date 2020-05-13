@@ -2,6 +2,8 @@
 
 $musblack: #20201E;
 $musred: #B71C1C;
+$spotify: #1DB954;
+$lastfm: #ba0000;
 
 
 @-webkit-keyframes red-cursor /* Safari and Chrome */ {
@@ -95,18 +97,6 @@ header {
   margin-top: 18px;
 }
 
-@media (max-width: 520px) {
-  .experiment-module {
-    margin-right: 20px;
-  margin-left: 20px;
-  }
-
-  .scaffold {
-    margin-right: 60px;
-  margin-left: 60px;
-  }
-}
-
 .experiment-module-name {
   background-color: $musred;
   margin-top: 10px;
@@ -129,12 +119,110 @@ header {
 .experiment-header {
   text-align: center;
   margin-top: 80px;
-  text-decoration: underline;
-  text-decoration-color: $musred;
   font-size: 3rem;
-}
-
-.experiment-header {
   margin-left: 20px;
   margin-right: 20px;
+}
+
+.experiment-header > .header {
+  text-decoration: underline;
+  text-decoration-color: $musred;
+}
+
+
+.experiment-header > .decription {
+  font-size: 1.3rem;
+  text-decoration: none;
+  text-decoration-color: rgba(0, 0, 0, 0);
+
+}
+
+.spotify-button {
+  margin-left: 20px;
+  background-color: $spotify;
+  border: none;
+  color: white;
+  padding: 8px 18px;
+  transition: 0.2s;
+  outline: none;
+  border-radius: 20px;
+  font-weight: 600;
+  width: 246px;
+}
+
+.spotify-button:hover {
+  background-color: darken($spotify, 8%);
+  transform: scale(1.02);
+}
+
+.spotify-button:active {
+  background-color: darken($spotify, 18%);
+  outline: none;
+  transform: scale(0.97);
+}
+
+.spotify-button:focus {
+  outline: none;
+}
+
+.spotify-button:disabled {
+  background-color: grey;
+}
+
+.lastfm {
+  background: $lastfm;
+}
+
+.spotify-button.lastfm:hover {
+  background-color: darken($lastfm, 8%);
+}
+
+.spotify-button.lastfm:active {
+  background-color: darken($lastfm, 18%);
+}
+
+.account-selector-center {
+  text-align: center;
+}
+
+.input {
+  background: transparent;
+  color: white;
+  font-family: "Roboto Mono", monospace;
+  border: 0px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.55);
+  transition: 0.4s;
+  width: 280px;
+  margin-bottom: 28px;
+}
+
+.input:hover {
+  border-bottom: 2px solid rgba(255, 255, 255, 0.7);
+}
+
+.input:focus {
+  border-bottom: 2px solid rgba(255, 255, 255, 1);
+  outline: none;
+}
+
+.account-selector-form-col {
+  margin-bottom: 25px;
+  margin-top: 25px;
+  text-align-last: center;
+}
+
+.account-selector-center-y {
+  align-self: center;
+}
+
+.scaffold-section {
+  margin-top: 30px;
+}
+
+a {
+  color: $musred;
+}
+
+a:hover {
+  color: lighten($musred, 10%);
 }

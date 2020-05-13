@@ -6,15 +6,15 @@ import Container from 'react-bootstrap/Container';
 
 import AppNavBar from './AppNavBar';
 
-const TitleHeader = ({ name, children }) => {
+const TitleHeader = ({name, description, children}) => {
   return <div>
-    <AppNavBar name={name} />
+    <AppNavBar name={name} description={description}/>
     <div className="scaffold">
       <Container>
         <Row>
-          <Row>
+          <Col xs={{span: 10, offset: 1}} md={{span: 12, offset: 0}}>
             {children}
-          </Row>
+          </Col>
         </Row>
       </Container>
     </div>

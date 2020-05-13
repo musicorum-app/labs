@@ -6,8 +6,8 @@ import Container from 'react-bootstrap/Container';
 import Link from 'react-router-dom/Link';
 
 const ExperimentModule = ({ name, image, text, page }) => {
-  return <Link to={`/${page}`} className="router-link">
-    <Col md className="experiment-module">
+  return <Col xs={{ span: 10, offset: 1 }} md={{ span: 4, offset: 0 }} className="experiment-module">
+    <Link to={`/${page}`} className="router-link">
       <Container>
         <Row>
           <img className="experiment-module-img" src={image} />
@@ -19,7 +19,8 @@ const ExperimentModule = ({ name, image, text, page }) => {
           {text}
         </Row>
       </Container>
-    </Col></Link>
+    </Link>
+  </Col>
 }
 
 export default ExperimentModule;

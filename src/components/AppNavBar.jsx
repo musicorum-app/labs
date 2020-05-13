@@ -8,7 +8,7 @@ import logo from '../assets/logo.svg';
 import Link from "react-router-dom/Link";
 import ExperimentHeader from './ExperimentHeader';
 
-const AppNavBar = ({ name }) => {
+const AppNavBar = ({ name, description }) => {
   return <header>
     <Navbar collapseOnSelect expand="sm" variant="dark">
       <Navbar.Brand>
@@ -29,7 +29,7 @@ const AppNavBar = ({ name }) => {
         </Nav>
       </Navbar.Collapse>
     </Navbar>
-    {name ? <ExperimentHeader name={name} /> : <TitleHeader />}
+    {name ? <ExperimentHeader name={name} description={description} /> : <TitleHeader />}
   </header>
 }
 

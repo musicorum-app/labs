@@ -21,7 +21,13 @@ function App() {
             <ExperimentsSection />
           </Route>
           <Route path="/mainstream">
-            <ExperimentScaffold name="mainstream metter">
+            <ExperimentScaffold
+              name="mainstream metter"
+              description={<p>
+                Check if you listen to more popular or underground artists/tracks, inspired by <a href="https://mainstream.ghan.nl/">https://mainstream.ghan.nl/</a>,
+                but using Spotify's popularity factor instead.
+              </p>}
+            >
               <Mainstream />
             </ExperimentScaffold>
           </Route>
