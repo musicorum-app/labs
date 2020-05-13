@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import AccountSelector from "../components/AccountSelector";
+import AccountSelector from "../components/AccountSelector.jsx";
 import LastfmAPI from "../api/lastfm.js";
 
 const Mainstream = () => {
