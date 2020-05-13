@@ -1,25 +1,27 @@
 import React from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Container from 'react-bootstrap/Container';
+
+import TitleHeader from './TitleHeader';
 
 import logo from '../assets/logo.svg';
-import logoText from '../assets/logotext.svg';
+import Link from "react-router-dom/Link";
+import ExperimentHeader from './ExperimentHeader';
 
-const AppNavBar = () => {
+const AppNavBar = ({ name }) => {
   return <header>
     <Navbar collapseOnSelect expand="sm" variant="dark">
       <Navbar.Brand>
-        <img
-          src={logo}
-          width="70"
-          height="30"
-          className="d-inline-block logo-icon align-middle"
-        />
+        <Link to='/' className="router-link">
+          <img
+            src={logo}
+            width="70"
+            height="30"
+            className="d-inline-block logo-icon align-middle"
+          />
       labs
-    </Navbar.Brand>
+        </Link>
+      </Navbar.Brand>
       <Navbar.Toggle aria-controls="navbar-collapse" />
       <Navbar.Collapse id="navbar-collapse">
         <Nav>
@@ -27,17 +29,7 @@ const AppNavBar = () => {
         </Nav>
       </Navbar.Collapse>
     </Navbar>
-    <div className="title">
-      <img src={logoText} />
-      <p className="title-text">lab<span className="red-cursor">s</span></p>
-      <Container>
-        <Row className="justify-content-md-center">
-          <Col md="auto">
-            <p className="header-text">A group of tools and experiments using last.fm data (and maybe spotify).</p>
-          </Col>
-        </Row>
-      </Container>
-    </div>
+    {name ? <ExperimentHeader name={name} /> : <TitleHeader />}
   </header>
 }
 

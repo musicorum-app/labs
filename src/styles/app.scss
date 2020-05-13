@@ -95,10 +95,15 @@ header {
   margin-top: 18px;
 }
 
-@media (max-width: 560px) {
+@media (max-width: 520px) {
   .experiment-module {
     margin-right: 20px;
   margin-left: 20px;
+  }
+
+  .scaffold {
+    margin-right: 60px;
+  margin-left: 60px;
   }
 }
 
@@ -106,4 +111,30 @@ header {
   background-color: $musred;
   margin-top: 10px;
   margin-bottom: 5px;
+}
+
+.router-link {
+  color: inherit;
+}
+
+.router-link:hover {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+.router-link:focus {
+  color: inherit;
+}
+
+.experiment-header {
+  text-align: center;
+  margin-top: 80px;
+  text-decoration: underline;
+  text-decoration-color: $musred;
+  font-size: 3rem;
+}
+
+.experiment-header {
+  margin-left: 20px;
+  margin-right: 20px;
 }
