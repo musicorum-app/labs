@@ -30,7 +30,7 @@ const AccountSelector = ({ spotify, onSelect, loading, setLoading, error, setErr
         </p>
       </Row>
       <Row className="account-selector-center">
-        <Col xs={12} md={6} className="account-selector-form-col">
+        <Col xs={12} md={7} className="account-selector-form-col account-selector-center-y">
           <form onSubmit={onSubmit}>
             <Row>
               <Col xs={12} xl={7}>
@@ -46,7 +46,7 @@ const AccountSelector = ({ spotify, onSelect, loading, setLoading, error, setErr
                   }
                 </Overlay>
               </Col>
-              <Col xs={12} xl={5}>
+              <Col xs={12} xl={5} className="align-self-center align-items-center">
                 <button disabled={loading} type="submit" className="spotify-button lastfm">
                   Continue with Last.fm
                 </button>
@@ -54,7 +54,7 @@ const AccountSelector = ({ spotify, onSelect, loading, setLoading, error, setErr
             </Row>
           </form>
         </Col>
-        <Col className="account-selector-center-y" xs={12} md={6}>
+        <Col className="account-selector-form-col account-selector-center-y" xs={12} md={5}>
           or
           <button disabled={loading} className="spotify-button">
             Connect with spotify

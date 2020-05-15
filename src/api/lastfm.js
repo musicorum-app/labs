@@ -7,10 +7,10 @@ export default class LastfmAPI {
     params.api_key = API_KEY;
     params.method = method;
     const urlParams = new URLSearchParams(params);
-    return fetch(`http://ws.audioscrobbler.com/2.0/?${urlParams.toString()}`).then(r => r.json())
+    return fetch(`${API_URL}?${urlParams.toString()}`).then(r => r.json())
   }
 
-  static async getTopArtists(user, period = '1month') {
-    return this.request('user.getTopArtists', {user, period})
+  static async getTopArtists(user, period = '1month', limit = 50) {
+    return this.request('user.getTopArtists', {user, period, limit})
   }
 }
