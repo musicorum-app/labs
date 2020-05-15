@@ -24,18 +24,7 @@ const AppNavBar = () => {
             image={mainstream}
             page="mainstream"
           />
-          <ExperimentModule
-            name="MAINSTREAM METTER"
-            text="Check if you listen to more popular or underground artists/tracks."
-            image={mainstream}
-            page="mainstream"
-          />
-          <ExperimentModule
-            name="MAINSTREAM METTER"
-            text="Check if you listen to more popular or underground artists/tracks."
-            image={mainstream}
-            page="mainstream"
-          />
+
         </Row>
         {/* <Col md className="experiment-module"></Col> */}
       </Row>

@@ -25,7 +25,7 @@ const AppNavBar = ({ name, description }) => {
       <Navbar.Toggle aria-controls="navbar-collapse" />
       <Navbar.Collapse id="navbar-collapse">
         <Nav>
-          <Nav.Link>github</Nav.Link>
+          <Nav.Link href="https://github.com/musicorum-app/labs">github</Nav.Link>
         </Nav>
       </Navbar.Collapse>
     </Navbar>
