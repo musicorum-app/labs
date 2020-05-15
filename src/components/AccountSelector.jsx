@@ -56,7 +56,9 @@ const AccountSelector = ({ spotify, onSelect, loading, setLoading, error, setErr
         </Col>
         <Col className="account-selector-form-col account-selector-center-y" xs={12} md={5}>
           or
-          <button disabled={loading} className="spotify-button">
+          <button disabled={loading} onClick={() => {
+            alert('This is not working yet :(')
+          }} className="spotify-button">
             Connect with spotify
           </button>
         </Col>
