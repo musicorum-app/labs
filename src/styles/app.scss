@@ -17,6 +17,14 @@ $lastfm: #ba0000;
   }
 }
 
+.full-width {
+  width: 100%;
+}
+
+.flex {
+  display: flex;
+}
+
 body {
   background-color: lighten($musblack, 4%);
   color: white;
@@ -264,7 +272,7 @@ a:hover {
 }
 
 .mainstream > .avg > .percent {
-  background-color: rgba($musred, 0.28);
+  background-color: $musred;
   padding: 0px 18px;
   border-radius: 6px;
   font-size: 6rem;
@@ -292,10 +300,11 @@ a:hover {
 $mainstreamItemSize: 60px;
 .mainstream > .item {
   display: flex;
-  background-color: rgba(255, 255, 255, 0.03);
-  border-radius: 10px;
-  padding: 8px;
-  justify-content: stretch;
+  //background-color: rgba(255, 255, 255, 0.03);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  margin-bottom: 8px;
+  padding: 8px 8px 16px;
+  justify-content: space-between;
 }
 
 .mainstream > .item > div {
@@ -303,13 +312,19 @@ $mainstreamItemSize: 60px;
   justify-content: space-between;
 }
 
-.mainstream > .item > div > .text {
+.mainstream > .item > div > .text, .mainstream > .item > .text {
   display: flex;
   justify-content: center;
   flex-direction: column;
 }
 
-.mainstream > .item > .image {
+.mainstream > .item > div > .name {
+  margin-left: 16px;
+  font-weight: bold;
+  font-size: 1.3rem;
+}
+
+.mainstream > .item > div > .image {
   width: $mainstreamItemSize !important;
   height: $mainstreamItemSize !important;
   background-repeat: no-repeat;

@@ -11,20 +11,12 @@ const Mainstream = () => {
   const [percent, setPercent] = useState(0)
   const [loadingText, setLoadingText] = useState('')
 
-  useEffect(() => {
-    try {
-      const cache = JSON.parse(localStorage.getItem('cache'))
-      if (cache) return setData(cache)
-    } catch (e) {
-    }
-  }, [])
-
   const onSelect = async ({method, data}) => {
-    try {
-      const cache = JSON.parse(localStorage.getItem('cache'))
-      if (cache) return setData(cache)
-    } catch (e) {
-    }
+    // try {
+    //   const cache = JSON.parse(localStorage.getItem('cache'))
+    //   if (cache) return setData(cache)
+    // } catch (e) {
+    // }
 
     setLoading(true);
     setData(null)
@@ -87,14 +79,18 @@ const Mainstream = () => {
                   <span className="text">mainstream</span>
                 </p>
               </span>
+              <div className="flex justify-content-between full-width">
+                <span>Artist</span>
+                <span>Popularity</span>
+              </div>
               {
                 data.artists.map(a => (
                   <div className="item" key={a.id}>
-                    <div className="image" style={{backgroundImage: `url("${a.images[2].url}")`}}/>
                     <div>
+                      <div className="image" style={{backgroundImage: `url("${a.images[2].url}")`}}/>
                       <a className="text name" href={a.uri}>{a.name}</a>
-                      <span className="text popularity">{a.popularity}%</span>
                     </div>
+                    <span className="text popularity">{a.popularity}%</span>
                   </div>
                 ))
               }
