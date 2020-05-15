@@ -25,7 +25,7 @@ const Mainstream = () => {
       setPercent(0)
       setLoadingText('Loading artists from last.fm...')
       const {user} = data;
-      const {error, message, topartists} = await LastfmAPI.getTopArtists(user, '1month', 20);
+      const {error, message, topartists} = await LastfmAPI.getTopArtists(user, 'overall', 20);
       console.log(error, topartists)
       if (error) {
         setLoading(false);
