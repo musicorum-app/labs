@@ -100,6 +100,10 @@ header {
   animation: red-cursor step-start 2s infinite;
 }
 
+.experiments-section {
+  margin-bottom: 200px;
+}
+
 .header-text {
   font-size: 20px;
 }
@@ -347,6 +351,7 @@ $mainstreamItemSize: 60px;
   border: 1px solid rgba(255, 255, 255, 0.07);
   border-radius: 6px;
   padding: 9px 16px;
+  transition: 0.2s;
 
   &:hover {
     cursor: pointer;
@@ -356,6 +361,7 @@ $mainstreamItemSize: 60px;
 
 .artist-order > .filterChooser > .selected {
   background-color: $musred;
+  transition: 0.2s;
   &:hover {
     background-color: lighten($musred, 6);
   }

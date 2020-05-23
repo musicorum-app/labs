@@ -10,7 +10,7 @@ import mainstream from '../assets/experiments/mainstream.svg';
 import artistOrder from '../assets/experiments/artist-order.svg';
 
 const AppNavBar = () => {
-  return <section>
+  return <section className="experiments-section">
     <Container>
       <Row className="justify-content-md-start">
         <Col md="auto">
