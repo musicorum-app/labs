@@ -16,11 +16,11 @@ const ArtistOrder = () => {
   const [userName, setUser] = useState(null)
 
   const onSelect = async ({method, data}) => {
-    try {
-      const cache = JSON.parse(localStorage.getItem('cache-ao'))
-      if (cache) return setData(cache)
-    } catch (e) {
-    }
+    // try {
+    //   const cache = JSON.parse(localStorage.getItem('cache-ao'))
+    //   if (cache) return setData(cache)
+    // } catch (e) {
+    // }
 
     setLoading(true);
     setData(null)
@@ -62,7 +62,7 @@ const ArtistOrder = () => {
           playcount: Number(a.playcount),
           url: a.url
         }))
-        localStorage.setItem('cache-ao', JSON.stringify(value))
+        // localStorage.setItem('cache-ao', JSON.stringify(value))
         setData(value)
         setLoading(false)
         handleChangeFilter(filter)()
