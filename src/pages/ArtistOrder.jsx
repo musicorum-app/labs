@@ -3,6 +3,8 @@ import AccountSelector from "../components/AccountSelector";
 import LastfmAPI from "../api/lastfm.js";
 import LoadingBar from "../components/LoadingBar";
 import MusicorumAPI from "../api/musicorum";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/esm/Col";
 
 const ArtistOrder = () => {
   const [loading, setLoading] = useState(false);
@@ -14,11 +16,11 @@ const ArtistOrder = () => {
   const [userName, setUser] = useState(null)
 
   const onSelect = async ({method, data}) => {
-    // try {
-    //   const cache = JSON.parse(localStorage.getItem('cache-ao'))
-    //   if (cache) return setData(cache)
-    // } catch (e) {
-    // }
+    try {
+      const cache = JSON.parse(localStorage.getItem('cache-ao'))
+      if (cache) return setData(cache)
+    } catch (e) {
+    }
 
     setLoading(true);
     setData(null)
@@ -60,7 +62,7 @@ const ArtistOrder = () => {
           playcount: Number(a.playcount),
           url: a.url
         }))
-        // localStorage.setItem('cache-ao', JSON.stringify(value))
+        localStorage.setItem('cache-ao', JSON.stringify(value))
         setData(value)
         setLoading(false)
         handleChangeFilter(filter)()
@@ -103,59 +105,61 @@ const ArtistOrder = () => {
                      error={error} setError={setError}
     />
 
-    <div className="scaffold-section">
-      {loading ?
-        <LoadingBar percent={percent} text={loadingText}/>
-        : ''
-      }
-      {
-        data
-          ? data.length
-          ? (
-            <div className="mainstream artist-order">
-              <p>Total of <strong>{data.length}</strong> arists</p>
-              <div className="filterChooser">
+    <Col>
+      <div className="scaffold-section">
+        {loading ?
+          <LoadingBar percent={percent} text={loadingText}/>
+          : ''
+        }
+        {
+          data
+            ? data.length
+            ? (
+              <div className="mainstream artist-order">
+                <p>Total of <strong>{data.length}</strong> arists</p>
+                <div className="filterChooser">
                 <span
                   className={`item ${filter === 'NAME' ? ' selected' : ''}`}
                   onClick={handleChangeFilter('NAME')}
                 >ORDER BY NAME</span>
-                <span
-                  className={`item ${filter === 'PLAYCOUNT' ? ' selected' : ''}`}
-                  onClick={handleChangeFilter('PLAYCOUNT')}
-                >ORDER BY PLAYCOUNT</span>
-                <p>Please note that changing the order may slow your device</p>
-              </div>
-              <div className="item">
-                <div>
-                  <a className="text name">Artist</a>
+                  <span
+                    className={`item ${filter === 'PLAYCOUNT' ? ' selected' : ''}`}
+                    onClick={handleChangeFilter('PLAYCOUNT')}
+                  >ORDER BY PLAYCOUNT</span>
+                  <p>Please note that changing the order may slow your device</p>
                 </div>
-                <span className="text popularity">Play count</span>
-              </div>
-              {
-                data.map((a, i) => (
-                  <div className="item" key={i}>
-                    <div>
+                <div className="item">
+                  <div>
+                    <a className="text name">Artist</a>
+                  </div>
+                  <span className="text popularity">Play count</span>
+                </div>
+                {
+                  data.map((a, i) => (
+                    <div className="item" key={i}>
+                      <div>
+                        <a
+                          className="text name"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          href={a.url}
+                        >{i + 1}. {a.name}</a>
+                      </div>
                       <a
-                        className="text name"
+                        className="text popularity reset-link"
                         target="_blank"
                         rel="noopener noreferrer"
-                        href={a.url}
-                      >{i + 1}. {a.name}</a>
+                        href={getPageLink(a.url)}
+                      >{a.playcount}</a>
                     </div>
-                    <a
-                      className="text popularity reset-link"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      href={getPageLink(a.url)}
-                    >{a.playcount}</a>
-                  </div>
-                ))
-              }
-            </div>)
-          : '0 artists found for this account'
-          : ''
-      }
-    </div>
+                  ))
+                }
+              </div>)
+            : '0 artists found for this account'
+            : ''
+        }
+      </div>
+    </Col>
   </>
 };
 
