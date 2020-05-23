@@ -10,6 +10,7 @@ import Switch from 'react-router-dom/Switch';
 import Route from 'react-router-dom/Route';
 
 import Mainstream from './pages/Mainstream';
+import ArtistOrder from "./pages/ArtistOrder";
 
 function App() {
   return (
@@ -29,6 +30,17 @@ function App() {
               </p>}
             >
               <Mainstream />
+            </ExperimentScaffold>
+          </Route>
+          <Route path="/artist-order">
+            <ExperimentScaffold
+              name="artist order"
+              description={<p>
+                Take a look at your artists sorted by playcount or name. <br />
+                This experiment is <strong>not yet optimized to mobile devices</strong>, and it may slow a lot if you have a lot of artists
+              </p>}
+            >
+              <ArtistOrder />
             </ExperimentScaffold>
           </Route>
         </Switch>

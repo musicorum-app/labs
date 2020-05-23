@@ -7,6 +7,7 @@ import Container from 'react-bootstrap/Container';
 import ExperimentModule from './ExperimentModule';
 
 import mainstream from '../assets/experiments/mainstream.svg';
+import artistOrder from '../assets/experiments/artist-order.svg';
 
 const AppNavBar = () => {
   return <section>
@@ -24,7 +25,12 @@ const AppNavBar = () => {
             image={mainstream}
             page="mainstream"
           />
-
+          <ExperimentModule
+            name="ARTIST ORDER"
+            text="Take a look at your artists sorted by playcount or name.."
+            image={artistOrder}
+            page="artist-order"
+          />
         </Row>
         {/* <Col md className="experiment-module"></Col> */}
       </Row>

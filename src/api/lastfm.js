@@ -13,4 +13,8 @@ export default class LastfmAPI {
   static async getTopArtists(user, period = '1month', limit = 50) {
     return this.request('user.getTopArtists', {user, period, limit})
   }
+
+  static async getLibraryArtists(user, limit = 50, page = 0) {
+    return this.request('library.getArtists', { user, limit, page })
+  }
 }
