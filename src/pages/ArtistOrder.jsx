@@ -11,6 +11,7 @@ const ArtistOrder = () => {
   const [percent, setPercent] = useState(0)
   const [loadingText, setLoadingText] = useState('')
   const [filter, setFilter] = useState('PLAYCOUNT')
+  const [userName, setUser] = useState(null)
 
   const onSelect = async ({method, data}) => {
     // try {
@@ -24,6 +25,7 @@ const ArtistOrder = () => {
 
     if (method === 'lastfm') {
       const {user} = data;
+      setUser(user);
       setPercent(0);
       setLoadingText(`Loading artists from ${user}...`);
       const {error, message, artists} = await LastfmAPI.getLibraryArtists(user, 100, 1);
@@ -80,6 +82,11 @@ const ArtistOrder = () => {
     }
   };
 
+  const getPageLink = (url) => {
+    const artistLinkComponent = url.split('/')[4]
+    return `https://www.last.fm/user/${userName}/library/music/${artistLinkComponent}`
+  }
+
   const handleChangeFilter = select => () => {
     if (select === filter) return;
     if (select === 'PLAYCOUNT') {
@@ -128,9 +135,19 @@ const ArtistOrder = () => {
                 data.map((a, i) => (
                   <div className="item" key={i}>
                     <div>
-                      <a className="text name" href={a.url}>{i + 1}. {a.name}</a>
+                      <a
+                        className="text name"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        href={a.url}
+                      >{i + 1}. {a.name}</a>
                     </div>
-                    <span className="text popularity">{a.playcount}</span>
+                    <a
+                      className="text popularity reset-link"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      href={getPageLink(a.url)}
+                    >{a.playcount}</a>
                   </div>
                 ))
               }

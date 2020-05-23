@@ -25,6 +25,13 @@ $lastfm: #ba0000;
   display: flex;
 }
 
+.reset-link {
+  color: white !important;
+  &:hover {
+    color: white !important;
+  }
+}
+
 body {
   background-color: lighten($musblack, 4%);
   color: white;
