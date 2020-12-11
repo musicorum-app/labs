@@ -4,7 +4,7 @@ import LastfmAPI from "../api/lastfm.js";
 import LoadingBar from "../components/LoadingBar";
 import Col from "react-bootstrap/esm/Col";
 
-const ArtistOrder = () => {
+const TrackOrder = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [data, setData] = useState(null);
@@ -27,35 +27,35 @@ const ArtistOrder = () => {
       const {user} = data;
       setUser(user);
       setPercent(0);
-      setLoadingText(`Loading artists from ${user}...`);
-      const {error, message, artists} = await LastfmAPI.getLibraryArtists(user, 100, 1);
-      console.log(error, artists);
+      setLoadingText(`Loading tracks from ${user}...`);
+      const {error, message, toptracks: tracks} = await LastfmAPI.getTopTracks(user, 100, 1);
+      console.log(error, tracks);
       if (error) {
         setLoading(false);
         return setError(message);
       } else {
-        if (!artists.artist.length) {
+        if (!tracks.track.length) {
           setLoading(false);
           return setData({
-            artists: []
+            tracks: []
           })
         }
-        const totalPages = Number(artists['@attr'].totalPages);
+        const totalPages = Number(tracks['@attr'].totalPages);
         const percentFragment = 100 / totalPages
         console.log(percentFragment)
-        const artistList = [...artists.artist]
+        const trackList = [...tracks.track]
 
         for (let i = 2; i < totalPages; i++) {
           console.log(percentFragment * (i - 1))
           setPercent(~~(percentFragment * i))
-          setLoadingText(`Loading artists page ${i} of ${totalPages}...`);
+          setLoadingText(`Loading tracks page ${i} of ${totalPages}...`);
           console.log('page ' + i)
-          let result = await LastfmAPI.getLibraryArtists(user, 100, i);
-          artistList.push(...result.artists.artist)
+          let result = await LastfmAPI.getTopTracks(user, 100, i);
+          trackList.push(...result.toptracks.track)
         }
 
-        console.log(artistList)
-        const value = artistList.map(a => ({
+        console.log(trackList)
+        const value = trackList.map(a => ({
           name: a.name,
           playcount: Number(a.playcount),
           url: a.url
@@ -64,27 +64,14 @@ const ArtistOrder = () => {
         setData(value)
         setLoading(false)
         handleChangeFilter(filter)()
-
-        // setPercent(50);
-        // setLoadingText('Loading popularity...');
-        // const artists = await MusicorumAPI.getMainstream(list);
-        // setPercent(100)
-        // setLoading(false)
-        // const pops = artists.map(d => d.popularity)
-        // const popAvg = (pops.reduce((a, b) => a + b, 0)) / pops.length
-        // const value = {
-        //   popAvg,
-        //   artists
-        // }
-        // setData(value)
-        // setLoading(false);
       }
     }
   };
 
   const getPageLink = (url) => {
     const artistLinkComponent = url.split('/')[4]
-    return `https://www.last.fm/user/${userName}/library/music/${artistLinkComponent}`
+    const trackLinkComponent = url.split('/')[6]
+    return `https://www.last.fm/user/${userName}/library/music/${artistLinkComponent}/_/${trackLinkComponent}`
   }
 
   const handleChangeFilter = select => () => {
@@ -114,7 +101,7 @@ const ArtistOrder = () => {
             ? data.length
             ? (
               <div className="mainstream artist-order">
-                <p>Total of <strong>{data.length}</strong> artists</p>
+                <p>Total of <strong>{data.length}</strong> tracks</p>
                 <div className="filterChooser">
                 <span
                   className={`item ${filter === 'NAME' ? ' selected' : ''}`}
@@ -128,7 +115,7 @@ const ArtistOrder = () => {
                 </div>
                 <div className="item">
                   <div>
-                    <a className="text name">Artist</a>
+                    <a className="text name">Track</a>
                   </div>
                   <span className="text popularity">Play count</span>
                 </div>
@@ -153,7 +140,7 @@ const ArtistOrder = () => {
                   ))
                 }
               </div>)
-            : '0 artists found for this account'
+            : '0 tracks found for this account'
             : ''
         }
       </div>
@@ -161,4 +148,4 @@ const ArtistOrder = () => {
   </>
 };
 
-export default ArtistOrder;
+export default TrackOrder;

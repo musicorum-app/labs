@@ -31,6 +31,12 @@ const AppNavBar = () => {
             image={artistOrder}
             page="artist-order"
           />
+          <ExperimentModule
+            name="TRACK ORDER"
+            text="Take a look at your tracks sorted by playcount or name.."
+            image={artistOrder} //TODO: Add track icon
+            page="track-order"
+          />
         </Row>
         {/* <Col md className="experiment-module"></Col> */}
       </Row>

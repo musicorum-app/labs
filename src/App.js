@@ -11,6 +11,7 @@ import Route from 'react-router-dom/Route';
 
 import Mainstream from './pages/Mainstream';
 import ArtistOrder from "./pages/ArtistOrder";
+import TrackOrder from "./pages/TrackOrder";
 
 function App() {
   return (
@@ -41,6 +42,17 @@ function App() {
               </p>}
             >
               <ArtistOrder />
+            </ExperimentScaffold>
+          </Route>
+          <Route path="/track-order">
+            <ExperimentScaffold
+              name="track order"
+              description={<p>
+                Take a look at your tracks sorted by playcount or name. <br />
+                This experiment is <strong>not yet optimized to mobile devices</strong>, and it may slow a lot if you have a lot of artists
+              </p>}
+            >
+              <TrackOrder />
             </ExperimentScaffold>
           </Route>
         </Switch>
