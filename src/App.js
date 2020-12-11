@@ -49,7 +49,7 @@ function App() {
               name="track order"
               description={<p>
                 Take a look at your tracks sorted by playcount or name. <br />
-                This experiment is <strong>not yet optimized to mobile devices</strong>, and it may slow a lot if you have a lot of artists
+                This experiment is <strong>not yet optimized to mobile devices</strong>, and it may slow a lot if you have a lot of tracks
               </p>}
             >
               <TrackOrder />
