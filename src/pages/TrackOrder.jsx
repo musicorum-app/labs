@@ -76,7 +76,7 @@ const TrackOrder = () => {
   };
 
   const getPageLink = (url) => {
-    const [,,,artistLinkComponent,,trackLinkComponent] = url.split('/')
+    const [, , , artistLinkComponent, , trackLinkComponent] = url.split('/')
     return `https://www.last.fm/user/${userName}/library/music/${artistLinkComponent}/_/${trackLinkComponent}`
   }
 
@@ -88,8 +88,10 @@ const TrackOrder = () => {
     if (select === filter) return;
     if (select === 'PLAYCOUNT') {
       setData(data.sort((a, b) => b.playcount - a.playcount));
-    } else {
+    } else if (select === 'TRACK') {
       setData(data.sort((a, b) => a.name.localeCompare(b.name)));
+    } else {
+      setData(data.sort((a, b) => a.artist.localeCompare(b.artist)));
     }
     setFilter(select);
   };
@@ -113,18 +115,26 @@ const TrackOrder = () => {
               <div className="mainstream artist-order">
                 <p>Total of <strong>{data.length}</strong> tracks</p>
                 <div className="filterChooser">
-                <span
-                  className={`item ${filter === 'NAME' ? ' selected' : ''}`}
-                  onClick={handleChangeFilter('NAME')}
-                >ORDER BY NAME</span>
                   <span
-                    className={`item ${filter === 'PLAYCOUNT' ? ' selected' : ''}`}
+                    className={`item btn ${filter === 'TRACK' ? 'selected' : ''}`}
+                    onClick={handleChangeFilter('TRACK')}
+                  >ORDER BY TRACK NAME</span>
+                  <br />
+                  <span
+                    className={`item btn ${filter === 'ARTIST' ? 'selected' : ''}`}
+                    onClick={handleChangeFilter('ARTIST')}
+                  >ORDER BY ARTIST NAME</span>
+                  <br />
+                  <span
+                    className={`item btn ${filter === 'PLAYCOUNT' ? 'selected' : ''}`}
                     onClick={handleChangeFilter('PLAYCOUNT')}
                   >ORDER BY PLAYCOUNT</span>
-                  <br />
-                  <br />
-                  <Form.Check type="checkbox" label="Show artist name (note that alphabetical order is based on track name)" onChange={handleSwitch} />
-                  <br />
+                  <br/>
+                  <br/>
+                  <Form.Check type="checkbox"
+                              label="Show artist name (note that alphabetical order is based on track name)"
+                              onChange={handleSwitch}/>
+                  <br/>
                   <p>Please note that changing the order may slow your device</p>
                 </div>
                 <div className="item">

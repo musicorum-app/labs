@@ -355,12 +355,13 @@ $mainstreamItemSize: 60px;
 }
 
 .artist-order > .filterChooser > .item {
-  margin: 0 20px;
+  margin: 10px 20px;
   border: 1px solid rgba(255, 255, 255, 0.07);
   border-radius: 6px;
   padding: 9px 16px;
   transition: 0.2s;
   white-space: pre;
+  color: white !important;
 
   &:hover {
     cursor: pointer;
