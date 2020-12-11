@@ -10,7 +10,7 @@ const TitleHeader = ({name, description, children}) => {
   return <div>
     <AppNavBar name={name} description={description}/>
     <div className="scaffold">
-      <Col xs={{ span: 10, offset: 1 }} md={{ span: 10, offset: 1 }} lg={{ span: 8, offset: 2 }} xl={{ span: 6, offset: 3 }}>
+      <Col xs={{ span: 10, offset: 1 }} md={{ span: 10, offset: 1 }} lg={{ span: 10, offset: 1 }} xl={{ span: 8, offset: 2 }}>
         {children}
       </Col>
     </div>

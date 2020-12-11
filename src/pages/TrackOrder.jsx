@@ -3,8 +3,9 @@ import AccountSelector from "../components/AccountSelector";
 import LastfmAPI from "../api/lastfm.js";
 import LoadingBar from "../components/LoadingBar";
 import Col from "react-bootstrap/esm/Col";
+import {Form} from "react-bootstrap";
 
-const ArtistOrder = () => {
+const TrackOrder = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [data, setData] = useState(null);
@@ -12,6 +13,7 @@ const ArtistOrder = () => {
   const [loadingText, setLoadingText] = useState('')
   const [filter, setFilter] = useState('PLAYCOUNT')
   const [userName, setUser] = useState(null)
+  const [showArtist, setShowArtist] = useState(false)
 
   const onSelect = async ({method, data}) => {
     // try {
@@ -27,72 +29,69 @@ const ArtistOrder = () => {
       const {user} = data;
       setUser(user);
       setPercent(0);
-      setLoadingText(`Loading artists from ${user}...`);
-      const {error, message, artists} = await LastfmAPI.getLibraryArtists(user, 100, 1);
-      console.log(error, artists);
+      setLoadingText(`Loading tracks from ${user}...`);
+      const {error, message, toptracks: tracks} = await LastfmAPI.getTopTracks(user, 400, 1);
+      console.log(error, tracks);
       if (error) {
         setLoading(false);
         return setError(message);
       } else {
-        if (!artists.artist.length) {
+        if (!tracks.track.length) {
           setLoading(false);
           return setData({
-            artists: []
+            tracks: []
           })
         }
-        const totalPages = Number(artists['@attr'].totalPages);
+        const totalPages = Number(tracks['@attr'].totalPages);
         const percentFragment = 100 / totalPages
         console.log(percentFragment)
-        const artistList = [...artists.artist]
-
-        for (let i = 2; i < totalPages; i++) {
-          console.log(percentFragment * (i - 1))
-          setPercent(~~(percentFragment * i))
-          setLoadingText(`Loading artists page ${i} of ${totalPages}...`);
-          console.log('page ' + i)
-          let result = await LastfmAPI.getLibraryArtists(user, 100, i);
-          artistList.push(...result.artists.artist)
-        }
-
-        console.log(artistList)
-        const value = artistList.map(a => ({
+        const trackList = [...tracks.track.map(a => ({
           name: a.name,
+          artist: a.artist ? a.artist.name : 'Unknown',
           playcount: Number(a.playcount),
           url: a.url
-        }))
-        // localStorage.setItem('cache-ao', JSON.stringify(value))
-        setData(value)
+        }))]
+
+        for (let i = 2; i < totalPages + 1; i++) {
+          console.log(percentFragment * (i - 1))
+          setPercent(~~(percentFragment * i))
+          setLoadingText(`Loading tracks page ${i} of ${totalPages}...`);
+          let result = await LastfmAPI.getTopTracks(user, 400, i);
+          if (result.error) {
+            return alert('Something wrong: ' + result.message)
+          }
+          trackList.push(...result.toptracks.track.map(a => ({
+            name: a.name,
+            artist: a.artist ? a.artist.name : 'Unknown',
+            playcount: Number(a.playcount),
+            url: a.url
+          })))
+        }
+
+        setData(trackList)
         setLoading(false)
         handleChangeFilter(filter)()
-
-        // setPercent(50);
-        // setLoadingText('Loading popularity...');
-        // const artists = await MusicorumAPI.getMainstream(list);
-        // setPercent(100)
-        // setLoading(false)
-        // const pops = artists.map(d => d.popularity)
-        // const popAvg = (pops.reduce((a, b) => a + b, 0)) / pops.length
-        // const value = {
-        //   popAvg,
-        //   artists
-        // }
-        // setData(value)
-        // setLoading(false);
       }
     }
   };
 
   const getPageLink = (url) => {
-    const artistLinkComponent = url.split('/')[4]
-    return `https://www.last.fm/user/${userName}/library/music/${artistLinkComponent}`
+    const [, , , artistLinkComponent, , trackLinkComponent] = url.split('/')
+    return `https://www.last.fm/user/${userName}/library/music/${artistLinkComponent}/_/${trackLinkComponent}`
+  }
+
+  const handleSwitch = ev => {
+    setShowArtist(ev.target.checked)
   }
 
   const handleChangeFilter = select => () => {
     if (select === filter) return;
     if (select === 'PLAYCOUNT') {
       setData(data.sort((a, b) => b.playcount - a.playcount));
-    } else {
+    } else if (select === 'TRACK') {
       setData(data.sort((a, b) => a.name.localeCompare(b.name)));
+    } else {
+      setData(data.sort((a, b) => a.artist.localeCompare(b.artist)));
     }
     setFilter(select);
   };
@@ -114,21 +113,33 @@ const ArtistOrder = () => {
             ? data.length
             ? (
               <div className="mainstream artist-order">
-                <p>Total of <strong>{data.length}</strong> artists</p>
+                <p>Total of <strong>{data.length}</strong> tracks</p>
                 <div className="filterChooser">
-                <span
-                  className={`item ${filter === 'NAME' ? ' selected' : ''}`}
-                  onClick={handleChangeFilter('NAME')}
-                >ORDER BY NAME</span>
                   <span
-                    className={`item ${filter === 'PLAYCOUNT' ? ' selected' : ''}`}
+                    className={`item btn ${filter === 'TRACK' ? 'selected' : ''}`}
+                    onClick={handleChangeFilter('TRACK')}
+                  >ORDER BY TRACK NAME</span>
+                  <br />
+                  <span
+                    className={`item btn ${filter === 'ARTIST' ? 'selected' : ''}`}
+                    onClick={handleChangeFilter('ARTIST')}
+                  >ORDER BY ARTIST NAME</span>
+                  <br />
+                  <span
+                    className={`item btn ${filter === 'PLAYCOUNT' ? 'selected' : ''}`}
                     onClick={handleChangeFilter('PLAYCOUNT')}
                   >ORDER BY PLAYCOUNT</span>
+                  <br/>
+                  <br/>
+                  <Form.Check type="checkbox"
+                              label="Show artist name (note that alphabetical order is based on track name)"
+                              onChange={handleSwitch}/>
+                  <br/>
                   <p>Please note that changing the order may slow your device</p>
                 </div>
                 <div className="item">
                   <div>
-                    <a className="text name">Artist</a>
+                    <span className="text name">Track</span>
                   </div>
                   <span className="text popularity">Play count</span>
                 </div>
@@ -141,7 +152,7 @@ const ArtistOrder = () => {
                           target="_blank"
                           rel="noopener noreferrer"
                           href={a.url}
-                        >{i + 1}. {a.name}</a>
+                        >{i + 1}. {showArtist ? `${a.artist} - ` : ''}{a.name}</a>
                       </div>
                       <a
                         className="text popularity reset-link"
@@ -153,7 +164,7 @@ const ArtistOrder = () => {
                   ))
                 }
               </div>)
-            : '0 artists found for this account'
+            : '0 tracks found for this account'
             : ''
         }
       </div>
@@ -161,4 +172,4 @@ const ArtistOrder = () => {
   </>
 };
 
-export default ArtistOrder;
+export default TrackOrder;

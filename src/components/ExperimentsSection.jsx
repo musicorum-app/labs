@@ -8,6 +8,7 @@ import ExperimentModule from './ExperimentModule';
 
 import mainstream from '../assets/experiments/mainstream.svg';
 import artistOrder from '../assets/experiments/artist-order.svg';
+import trackOrder from '../assets/experiments/track-order.svg';
 
 const AppNavBar = () => {
   return <section className="experiments-section">
@@ -30,6 +31,12 @@ const AppNavBar = () => {
             text="Take a look at your artists sorted by playcount or name.."
             image={artistOrder}
             page="artist-order"
+          />
+          <ExperimentModule
+            name="TRACK ORDER"
+            text="Take a look at your tracks sorted by playcount or name.."
+            image={trackOrder}
+            page="track-order"
           />
         </Row>
         {/* <Col md className="experiment-module"></Col> */}
