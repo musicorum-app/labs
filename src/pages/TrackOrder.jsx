@@ -76,7 +76,7 @@ const TrackOrder = () => {
   };
 
   const getPageLink = (url) => {
-    const [, , , , artistLinkComponent, , trackLinkComponent] = url.split('/')
+    const [, , , artistLinkComponent, , trackLinkComponent] = url.split('/')
     return `https://www.last.fm/user/${userName}/library/music/${artistLinkComponent}/_/${trackLinkComponent}`
   }
 
@@ -91,6 +91,10 @@ const TrackOrder = () => {
     } else if (select === 'TRACK') {
       setData(data.sort((a, b) => a.name.localeCompare(b.name)));
     } else {
+      if (showArtist) {
+        const generateSorter = ({artist, name}) => `${artist} - ${name}`
+        setData(data.sort((a, b) => generateSorter(a).localeCompare(generateSorter(b))));
+      }
       setData(data.sort((a, b) => a.artist.localeCompare(b.artist)));
     }
     setFilter(select);
