@@ -76,7 +76,7 @@ const TrackOrder = () => {
   };
 
   const getPageLink = (url) => {
-    const [, , , artistLinkComponent, , trackLinkComponent] = url.split('/')
+    const [, , , , artistLinkComponent, , trackLinkComponent] = url.split('/')
     return `https://www.last.fm/user/${userName}/library/music/${artistLinkComponent}/_/${trackLinkComponent}`
   }
 
@@ -123,12 +123,12 @@ const TrackOrder = () => {
                     className={`item btn ${filter === 'TRACK' ? 'selected' : ''}`}
                     onClick={handleChangeFilter('TRACK')}
                   >ORDER BY TRACK NAME</span>
-                  <br />
+                  <br/>
                   <span
                     className={`item btn ${filter === 'ARTIST' ? 'selected' : ''}`}
                     onClick={handleChangeFilter('ARTIST')}
                   >ORDER BY ARTIST NAME</span>
-                  <br />
+                  <br/>
                   <span
                     className={`item btn ${filter === 'PLAYCOUNT' ? 'selected' : ''}`}
                     onClick={handleChangeFilter('PLAYCOUNT')}
@@ -173,7 +173,7 @@ const TrackOrder = () => {
         }
       </div>
     </Col>
-  </>
+  </>;
 };
 
 export default TrackOrder;
