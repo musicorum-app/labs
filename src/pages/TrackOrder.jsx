@@ -76,7 +76,7 @@ const TrackOrder = () => {
   };
 
   const getPageLink = (url) => {
-    const [, , , artistLinkComponent, , trackLinkComponent] = url.split('/')
+    const [, , , , artistLinkComponent, , trackLinkComponent] = url.split('/')
     return `https://www.last.fm/user/${userName}/library/music/${artistLinkComponent}/_/${trackLinkComponent}`
   }
 
