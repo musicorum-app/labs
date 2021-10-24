@@ -83,7 +83,7 @@ const ArtistOrder = () => {
   };
 
   const getPageLink = (url) => {
-    const artistLinkComponent = url.split('/')[4]
+    const artistLinkComponent = url.split('/')[4] + '/' + (url.split('/')[5] || '')
     return `https://www.last.fm/user/${userName}/library/music/${artistLinkComponent}`
   }
 
